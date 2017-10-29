@@ -1,0 +1,17 @@
+{
+  "name": "messengerbot",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node heroku/server.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5"
+  },
+  "engines": {
+    "node": "6.11.4"
+  }
+}
