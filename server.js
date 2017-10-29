@@ -44,7 +44,7 @@ app.post('/webhook', function(req, res) {
 app.get('/facebook', function(req, res) {
 
     // Your verify token. Should be a random string.
-    var VERIFY_TOKEN = "continue";
+    var VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
     // Checks the mode and token sent is correct
     if (req.param('hub.mode') == 'subscribe' &&
