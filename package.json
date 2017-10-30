@@ -5,9 +5,16 @@
   "scripts": {
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sisbel/MessengerBot.git"
+  },
+  "license": "https://github.com/sisbel/MessengerBot/blob/master/LICENSE",
+
   "dependencies": {
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
+    "dotenv": "4.0.0",
     "debug": "~2.6.9",
     "express": "~4.15.5"
   },
