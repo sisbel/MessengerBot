@@ -5,7 +5,7 @@ require('dotenv').config();
 const
     express = require('express'),
     bodyParser = require('body-parser'),
-    app = express().use(bodyParser.json()); // creates express http server
+    app = express().use(bodyParser.json()) && require('./WatConversation'); // creates express http server
 
 // Sets server port and logs message on success
 var port = (process.env.PORT || 5000);
