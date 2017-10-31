@@ -2,15 +2,13 @@ require('dotenv').config();
 
 var express         = require('express'); // app server
 var bodyParser      = require('body-parser'); // parser for post requests
-var Conversation    = require('watson-developer-cloud/conversation/v1'); // watson sdk
+var Conversation    = require('watson-developer-cloud'); // watson sdk
 
 var app = express();
-// Bootstrap application settings
-app.use(express.static('./public')); // load UI from public folder
-app.use(bodyParser.json());
 
-// Create the service wrapper
-var conversation = new Conversation({
+app.use(bodyParser.json());
+// Create conversation wrapper
+var conversationWrapper = new Conversation({
     'username'      : process.env.CONVERSATION_USERNAME,
     'password'      : process.env.CONVERSATION_PASSWORD,
     'version_date'  : process.env.VERSION_DATE
@@ -33,7 +31,7 @@ app.post('/api/message', function(req, res) {
     };
 
     // Send the input to the conversation service
-    conversation.message(payload, function(err, data) {
+    conversationWrapper.message(payload, function(err, data) {
         if (err) {
             return res.status(err.code || 500).json(err);
         }
