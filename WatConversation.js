@@ -4,37 +4,20 @@ var express         = require('express'); // app server
 var bodyParser      = require('body-parser'); // parser for post requests
 var Conversation    = require('watson-developer-cloud'); // watson sdk
 
-var app = express();
-
-app.use(bodyParser.json());
 // Create conversation wrapper
-var conversationWrapper = new Conversation({
+var conversationWrapper = new Conversation.conversation({
     'username'      : process.env.CONVERSATION_USERNAME,
     'password'      : process.env.CONVERSATION_PASSWORD,
+    'version'       :'v1',
     'version_date'  : process.env.VERSION_DATE
 });
 
-// Endpoint to be call from the client side
-app.post('/api/message', function(req, res) {
-    var workspace = process.env.WORKSPACE_ID || '<workspace-id>';
-    if (!workspace || workspace === '<workspace-id>') {
-        return res.json({
-            'output': {
-                'text': 'The app has not been configured with a workspace'
-            }
-        });
-    }
-    var payload = {
-        workspace_id: workspace,
-        context: req.body.context || {},
-        input: req.body.input || {}
-    };
-
-    // Send the input to the conversation service
-    conversationWrapper.message(payload, function(err, data) {
-        if (err) {
-            return res.status(err.code || 500).json(err);
-        }
-        return res.json(updateMessage(payload, data));
-    });
-});
+conversationWrapper.message({
+    workspace_id: process.env.WORKSPACE_ID,
+    input: {'text': 'cookies'}
+}, function (err, response) {
+    if (err)
+        console.log('error:', err);
+    else
+        console.log(response.output.text[0]);
+})
